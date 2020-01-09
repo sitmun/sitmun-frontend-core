@@ -1,0 +1,709 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>SITMUN Frontend Core Angular Library documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">SITMUN Frontend Core Angular Library documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content additional-page">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+<h1 id="sitmun-core-angular-library-usage----omit-in-toc---">SITMUN Core Angular Library Usage <!-- omit in toc --></h1>
+<blockquote>
+<p>SITMUN application development using Spring and Angular</p>
+</blockquote>
+<h2 id="table-of-contents----omit-in-toc---">Table of Contents <!-- omit in toc --></h2>
+<ul>
+<li><a href="#preface">Preface</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#setup">Setup</a><ul>
+<li><a href="#init">Init</a></li>
+<li><a href="#configuring-spring">Configuring Spring</a></li>
+<li><a href="#configuring-angular">Configuring Angular</a></li>
+<li><a href="#launch-development-environment">Launch development environment</a></li>
+</ul>
+</li>
+<li><a href="#application-layout">Application Layout</a></li>
+<li><a href="#customize-toolbar">Customize Toolbar</a></li>
+<li><a href="#customize-navigation">Customize Navigation</a></li>
+<li><a href="#customize-home-component">Customize Home Component</a></li>
+<li><a href="#adding-and-configuring-a-map-component">Adding and configuring a Map Component</a><ul>
+<li><a href="#configure-map-extent-scales-and-tiles">Configure Map Extent, Scales and Tiles</a></li>
+<li><a href="#configure-layers">Configure Layers</a><ul>
+<li><a href="#layer">Layer</a></li>
+<li><a href="#optionalparameter">OptionalParameter</a></li>
+<li><a href="#layerconfiguration">LayerConfiguration</a></li>
+<li><a href="#layergroup">LayerGroup</a></li>
+</ul>
+</li>
+<li><a href="#configure-base-layers">Configure Base layers</a></li>
+<li><a href="#configure-overlay-layers">Configure Overlay layers</a></li>
+<li><a href="#configure-situation-map">Configure Situation Map</a></li>
+</ul>
+</li>
+<li><a href="#build-and-run-development">Build and run (development)</a><ul>
+<li><a href="#with-spring-boot">With Spring Boot</a></li>
+<li><a href="#with-docker">With Docker</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="preface">Preface</h2>
+<p>SITMUN applications are basically Angular applications on client side that communicates with Spring Boot on the server side via REST API.</p>
+<p>In this document we will focus on the Angular client side development. SITMUN Angular application development is based on <a href="https://github.com/sitmun/sitmun-plugin-core/tree/master/src/main/angular-library">SITMUN Core Angular Library</a> and <a href="https://material.angular.io/">Angular Material</a> components.</p>
+<p>In order to develop an Angular SITMUN application, there are a handful of setup steps to go through that vary based on your app environment. In order to simplify the process, we provide a demo application, that you can take advantage of it.
+Generally, the steps are:</p>
+<ul>
+<li>Download the demo application repository</li>
+<li>Configure Spring</li>
+<li>Configure Angular</li>
+<li>Customize Application Layout</li>
+<li>Customize Application Navigation</li>
+<li>Add Components to Application</li>
+</ul>
+<p>In the next sections we will see how to develop a <a href="https://github.com/sitmun/sitmun-demo-app">SITMUN Application</a> consisting of a toolbar, a sidebar navigation, a login/logout component, an account data editor, a password change tool and a map component.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Git</li>
+<li>Java 8 release</li>
+<li>Node 8.x (LTS) or greater LTS release</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<h3 id="init">Init</h3>
+<ul>
+<li>Create a folder with the proper name for your application.</li>
+<li>Download the <a href="https://github.com/sitmun/sitmun-demo-app/archive/master.zip">SITMUN Demo application repository</a> (provided by us as an app template) inside the created folder.</li>
+<li>From the command line, go to the created folder and execute: <code>git init</code>.</li>
+</ul>
+<h3 id="configuring-spring">Configuring Spring</h3>
+<p>Configure your application artifact identifier in the <code>./build.gradle</code> file by changing the value of the <code>artifactId</code> property (<code>sitmun-demo-app</code>):</p>
+<div><pre class="line-numbers"><code class="language-gradle">publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId group
+            artifactId &#39;sitmun-demo-app&#39;
+            version version
+            from components.java
+        }
+    }
+}</code></pre></div><p>Rename the java package <code>org.sitmun.app.demo</code> to whichever package name you choose using a code refactoring code tool like Eclipse.</p>
+<p>Create a Spring Boot configuration YML file by renaming <code>./src/main/resources/application-h2.yml</code> to <code>./src/main/resources/application.yml</code> and change the <code>application</code> <code>name</code> property:</p>
+<div><pre class="line-numbers"><code class="language-yml">...
+spring:
+    application:
+        name: sitmun-demo-app
+...</code></pre></div><p>In order to change the application version it is required to edit the <code>./gradle.properties</code> file and change the <code>sitmun_version</code> property value:</p>
+<div><pre class="line-numbers"><code class="language-properties">...
+sitmun_version=0.0.1-SNAPSHOT
+...</code></pre></div><h3 id="configuring-angular">Configuring Angular</h3>
+<p>Change the Angular application name by editing the <code>./angular.json</code> file and changing the <code>projects.webapp.root</code> property:</p>
+<div><pre class="line-numbers"><code class="language-json">...
+&quot;projects&quot;: {
+    &quot;webapp&quot;: {
+        &quot;root&quot;: &quot;Sitmun Demo Application&quot;,
+        ...
+    }
+}</code></pre></div><p>Change the Angular application version by editing the <code>./package.json</code> file and changing the <code>version</code> property value:</p>
+<div><pre class="line-numbers"><code class="language-json">...
+&quot;version&quot;: &quot;0.6.1&quot;,
+...</code></pre></div><h3 id="launch-development-environment">Launch development environment</h3>
+<p>In order to set up an environment for developing the Angular application we have to follow these steps:</p>
+<ul>
+<li>From the command line, go to the created folder.</li>
+<li>Build the Spring application with <code>./gradlew assemble</code>.</li>
+<li>Run the Spring application with <code>./gradlew bootRun</code>.</li>
+<li>Run teh Angular application with <code>ng serve --proxy-config proxy.conf.json</code> and open the <a href="http://localhost:4200">http://localhost:4200</a> url from a browser.</li>
+</ul>
+<h2 id="application-layout">Application Layout</h2>
+<p>The application general layout is located in the <code>./src/main/angular/app/app.component.html</code> file and consists of a toolbar with a content zone below with a left sidebar navigation:  </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;div class=&quot;main-container&quot;&gt;
+    &lt;mat-toolbar color=&quot;primary&quot;&gt;
+        ...
+    &lt;/mat-toolbar&gt;
+    &lt;mat-sidenav-container class=&quot;main-sidenav-container&quot;&gt;
+        &lt;mat-sidenav&gt;
+            &lt;mat-nav-list&gt;
+            ...
+            &lt;/mat-nav-list&gt;
+        &lt;/mat-sidenav&gt;
+        &lt;mat-sidenav-content&gt;
+            &lt;router-outlet&gt;&lt;/router-outlet&gt;
+        &lt;/mat-sidenav-content&gt;
+    &lt;/mat-sidenav-container&gt;
+&lt;/div&gt;</code></pre></div><p>The layout is implemented using <a href="https://material.angular.io/">Angular Material Design</a> components that are included in the <code>.src/main/angular/app/app.module.ts</code> file as imports. Every module, component or service used in the application must be declared in this file.</p>
+<h2 id="customize-toolbar">Customize Toolbar</h2>
+<p>The application toolbar consists of a toggle menu a home link with the application logo and a text area with the name of the application:</p>
+<div><pre class="line-numbers"><code class="language-html">...
+&lt;mat-toolbar color=&quot;primary&quot;&gt;
+    &lt;button mat-icon-button (click)=&quot;snav.toggle()&quot;&gt;
+        &lt;mat-icon&gt;menu&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;button mat-button [routerLink]=&quot;[&#39;&#39;]&quot;&gt;
+        &lt;img *ngIf=&quot;isHome&quot; height=&quot;50px;&quot; src=&quot;assets/logo.png&quot;&gt;
+    &lt;/button&gt;
+    &lt;h1 [translate]=&quot;&#39;applicationName&#39;&quot; fxHide.xs&gt;Sitmun Demo App&lt;/h1&gt;
+    &lt;span class=&quot;fill-remaining-space&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;toolbar-spacer&quot;&gt;&lt;/span&gt;
+    ...
+&lt;/mat-toolbar&gt;
+...</code></pre></div><p>As we can see in the above code snippet the logo file is located at the relative path <code>assets/logo.png</code>. We can change the logo by replacing the logo file located in the <code>src/main/angular/assets/</code> or by adding a new image file in the same folder and accordingly changing the <code>src</code> atributte value in the <code>&lt;img&gt;</code> tag.</p>
+<p>We can add new components to the toolbar, for instance, a language toolset:</p>
+<div><pre class="line-numbers"><code class="language-html">...
+&lt;button mat-stroked-button (click)=&quot;changeLanguage(&#39;ca&#39;)&quot;&gt;CA&lt;/button&gt;
+&lt;button mat-stroked-button (click)=&quot;changeLanguage(&#39;es&#39;)&quot;&gt;ES&lt;/button&gt;
+&lt;button mat-stroked-button (click)=&quot;changeLanguage(&#39;en&#39;)&quot;&gt;EN&lt;/button&gt;
+...</code></pre></div><p>As we can see in the above code snippet we&#39;ve added  3 buttons for change application language to 3 different languages.
+The language change action is triggered using the <code>changeLanguage</code> function. This function is defined in the <code>.src/main/angular/app/app.module.ts</code> file:</p>
+<div><pre class="line-numbers"><code class="language-ts">...
+changeLanguage(locale: string ){
+    this.translate.use(locale);
+}
+...</code></pre></div><h2 id="customize-navigation">Customize Navigation</h2>
+<p>Application navigation is defined in the <code>.src/main/angular/app/app.module.ts</code> file. In the Demo Application we define 4 navigation nodes/pages that are implemented with 3 SITMUN Core Angular Library components  (<a href="https://sitmun.github.io/doc-angular/components/LoginComponent.html"><code>LoginComponent</code></a>, <a href="https://sitmun.github.io/doc-angular/components/AccountEditComponent.html"><code>AccountEditComponent</code></a>, <a href="https://sitmun.github.io/doc-angular/components/AccountChangePasswordComponent.html"><code>AccountChangePasswordComponent</code></a>) and the Demo Application home component (<code>HomeComponent</code>):</p>
+<div><pre class="line-numbers"><code class="language-ts">const appRoutes: Routes = [
+    {
+        path: &#39;&#39;,
+        component: HomeComponent
+    },
+    {
+        path: &#39;login&#39;,
+        component: LoginComponent
+    },
+    {
+        path: &#39;account&#39;,
+        component: AccountEditComponent
+    },
+    {
+        path: &#39;change-password&#39;,
+        component: AccountChangePasswordComponent
+    }
+];</code></pre></div><p>This pages can be accessed by the navigation links (see <code>[routerLink]</code> attributes in the <code>a</code> tags) defined in the sidebar menu defined in <code>.src/main/angular/app/app.component.html</code>:</p>
+<div><pre class="line-numbers"><code class="language-html">...
+&lt;mat-nav-list&gt;
+    &lt;span *ngIf=&quot;isLoggedIn()&quot;&gt;
+        &lt;h3 [translate]=&quot;&#39;menu.account&#39;&quot;&gt;{{&#39;menu.account&#39;| translate}}&lt;/h3&gt;
+        &lt;a href=&quot;&quot;
+            [routerLink]=&quot;[&#39;/account&#39;]&quot;
+            mat-list-item&gt;{{&#39;account.data&#39;| translate}}&lt;/a&gt;
+        &lt;a href=&quot;&quot;
+            [routerLink]=&quot;[&#39;/change-password&#39;]&quot;
+            mat-list-item&gt;{{&#39;account.change-password&#39;| translate}}&lt;/a&gt;
+        &lt;a href=&quot;&quot;
+            (click)=&quot;logout()&quot;
+            mat-list-item&gt;{{&#39;account.closeSession&#39;| translate}}&lt;/a&gt;
+    &lt;/span&gt;
+    &lt;span *ngIf=&quot;!isLoggedIn()&quot;&gt;
+        &lt;h3&gt;
+            &lt;a href=&quot;&quot;
+                [routerLink]=&quot;[&#39;/login&#39;]&quot;
+                mat-list-item&gt; {{&#39;global.login&#39;|translate}}&lt;/a&gt;
+        &lt;/h3&gt;
+    &lt;/span&gt;
+&lt;/mat-nav-list&gt;
+...</code></pre></div><h2 id="customize-home-component">Customize Home Component</h2>
+<p>Home Component is the only local component provided by our application and is rendered when application is first loaded and root navigation.
+This component as any Angular component mainly consists  of 2 files: an html file with the component template (<code>home.component.html</code>) and a typescript file (<code>home.component.ts</code>) with the component class, both located at the <code>.src/main/angular/app/home/</code> folder.
+We can customize this component by modifying this files and adding/configring SITMUN Core Angular Library components, other external components or local components developed for our application.</p>
+<p>In the next section we&#39;ĺl add a map viewer component (<a href="https://sitmun.github.io/doc-angular/components/MapComponent.html"><code>MapComponent</code></a>) from  SITMUN Core Angular Library to our <code>HomeComponent</code>.</p>
+<h2 id="adding-and-configuring-a-map-component">Adding and configuring a Map Component</h2>
+<p>In order to add a map viewer component to our home component, first we have to modify <code>.src/main/angular/app/app.module.ts</code> and import the map configuration service (<a href="https://sitmun.github.io/doc-angular/injectables/MapConfigurationManagerService.html"><code>MapConfigurationManagerService</code></a>) configuring this service as a provider inside our application:</p>
+<div><pre class="line-numbers"><code class="language-ts">...
+import { MapConfigurationManagerService } from &#39;sitmun-plugin-core&#39;;
+...
+providers: [
+    ...
+    //Map Configuration Service
+    MapConfigurationManagerService
+]
+...</code></pre></div><p><a href="https://sitmun.github.io/doc-angular/injectables/MapConfigurationManagerService.html"><code>MapConfigurationManagerService</code></a> enables <a href="https://sitmun.github.io/doc-angular/components/MapComponent.html"><code>MapComponent</code></a> layer customization.
+Now we can add the map component to our home component by placing the map component tag (<code>sitmun-map-viewer-map</code>) inside the home component template placed at <code>.src/main/angular/app/home/</code>:  </p>
+<div><pre class="line-numbers"><code class="language-html">&lt;sitmun-map-viewer-map
+    [extent]=&quot;[256901.08041000657, 4544669.980255321, 554715.9195899934, 4703023.019744679]&quot;
+    [initialProjection]=&quot;&#39;EPSG:25831&#39;&quot;&gt;&lt;/sitmun-map-viewer-map&gt;</code></pre></div><p>In the code above, we can see some of the map component input parameters, which are the following:</p>
+<ul>
+<li><code>extent</code>: array of numbers representing the extent of the initial view of the map component: [minx, miny, maxx, maxy].</li>
+<li><code>initialProjection</code>: code of the srs projection of the coordinates defined in extent, initialLon and initialLat</li>
+<li><code>initialLon</code>: x-coordinate of initial center of the map</li>
+<li><code>initialLat</code>: y-coordinate of initial center of the map</li>
+<li><code>initialZoom</code>: initial zoom of the map</li>
+</ul>
+<p>In order to add further configuration to the map component we have to import some required components and classes from SITMUN Core Angular Library in home component class (<code>home.component.ts</code>):</p>
+<div><pre class="line-numbers"><code class="language-ts">import {Principal,
+        LoginService,
+        MapConfigurationManagerService,
+        Layer,
+        LayerGroup,
+        MapOptionsConfiguration,
+        OptionalParameter,
+        MapComponentStatus} from &#39;sitmun-plugin-core&#39;;</code></pre></div><p>Then we inject <a href="https://sitmun.github.io/doc-angular/injectables/MapConfigurationManagerService.html"><code>MapConfigurationManagerService</code></a> in HomeComponent creation by adding to the constructor method:</p>
+<div><pre class="line-numbers"><code class="language-ts">constructor(
+...
+    private mapConfigurationManagerService: MapConfigurationManagerService,
+...
+)</code></pre></div><p>In the next sections we&#39;ĺl see how we can configure other aspects of the map using <a href="https://sitmun.github.io/doc-angular/injectables/MapConfigurationManagerService.html"><code>MapConfigurationManagerService</code></a>.</p>
+<h3 id="configure-map-extent-scales-and-tiles">Configure Map Extent, Scales and Tiles</h3>
+<p>If we want to configure map extent, scales and tiles, then we´ll have to create a <a href="https://sitmun.github.io/doc-angular/classes/MapOptionsConfiguration.html"><code>MapOptionsConfiguration</code></a> object and set the proper values:</p>
+<ul>
+<li><code>scales</code>: List of map scales</li>
+<li><code>projections</code>: List of available crs</li>
+<li><code>minScale</code>: Minimum scale</li>
+<li><code>maxScale</code>: Maximum scale</li>
+<li><code>extent</code>: Initial Extent</li>
+<li><code>maxExtent</code>: Maximum Extent</li>
+<li><code>tileWidth</code>: tile width</li>
+<li><code>tileHeight</code>: tile height</li>
+</ul>
+<p>In the code below we can see an example configuration of <a href="https://sitmun.github.io/doc-angular/classes/MapOptionsConfiguration.html"><code>MapOptionsConfiguration</code></a>:</p>
+<div><pre class="line-numbers"><code class="language-ts"> // Set map configuration
+    let mapOptionsConfiguration = new MapOptionsConfiguration();
+    mapOptionsConfiguration.scales = [
+        1000000, 700000, ​500000, 400000,
+        300000, 200000, 100000, 50000, 25000,
+        20000, 10000, 5001, 2500, 1000, 500].join();
+    mapOptionsConfiguration.projections = [&quot;EPSG:25831&quot;].join();
+    mapOptionsConfiguration.minScale = 3000;
+    mapOptionsConfiguration.maxScale = 3000000;
+    //Overrides the directive parameter
+    mapOptionsConfiguration.extent = [
+        256901.08041000657, // xMin
+        4544669.980255321,  // yMin
+        554715.9195899934,  // xMax
+        4703023.019744679   // yMax
+    ];
+    mapOptionsConfiguration.maxExtent = [
+        320000,     // xMin
+        4561229,    // yMin
+        491617,     // xMax
+        4686464     // yMax
+    ];
+    mapOptionsConfiguration.tileWidth = 500;
+    mapOptionsConfiguration.tileHeight = 500;
+
+    this.mapConfigurationManagerService
+        .loadMapOptionsConfiguration(mapOptionsConfiguration);</code></pre></div><h3 id="configure-layers">Configure Layers</h3>
+<p>In order to add and configure layers y layer groups to the map component we&#39;ll have use the following classes by the SITMUN Core Angular Library.</p>
+<h4 id="layer">Layer</h4>
+<p>The <a href="https://sitmun.github.io/doc-angular/classes/Layer.html"><code>Layer</code></a> class configure Layer data and displaying configuration by setting the following parameters:</p>
+<ul>
+<li><code>visibility</code>: Visibility</li>
+<li><code>opacity</code>: Transparency (Transparent) 0-1 (Opaque)</li>
+<li><code>title</code>: Title</li>
+<li><code>id</code>: Id to index</li>
+<li><code>serverName</code>: Service Name</li>
+<li><code>attributions</code>: Service attributions</li>
+<li><code>format</code>: Request format (image / jpg ...)</li>
+<li><code>version</code>: Request service version</li>
+<li><code>url</code>: Service url</li>
+<li><code>isBaseLayer</code>: Us base layer?</li>
+<li><code>name</code>: Request layer name</li>
+<li><code>tiled</code>: Is tiled?</li>
+<li><code>desc</code>: Description</li>
+<li><code>url_transparent</code>: Transparent request parameter?</li>
+<li><code>url_bgcolor</code>: Request Background parameter color (Hexa)</li>
+<li><code>url_exception</code>: Request Exception URL</li>
+<li><code>extent</code>: Extent for tiled services</li>
+<li><code>tileHeight</code>: Tile height (if not defined, the default map is taken)</li>
+<li><code>tileWidth</code>: Tile width (if not defined, the default map is taken)</li>
+<li><code>queryable</code>: Enabled for GetFeatureInfo requests (enabled to use the viewer features information tool)</li>
+<li><code>minimumScale</code>: Minimum scale</li>
+<li><code>maximumScale</code>: Maximum scale</li>
+<li><code>projections</code>: List of available CRS</li>
+<li><code>infoUrl</code>: Features information URL</li>
+<li><code>metadataUrl</code>: Metadata information URL</li>
+<li><code>legendUrl</code>: Legend URL</li>
+<li><code>optionalParameters</code>: Array of OptionalParameter object that defines other optional parameter-value pairs for the request (TIME ...)</li>
+</ul>
+<h4 id="optionalparameter">OptionalParameter</h4>
+<p>The <a href="https://sitmun.github.io/doc-angular/classes/OptionalParameter.html"><code>OptionalParameter</code></a> class configure parameter-value pair to add to the request layer URL by setting the following parameters:</p>
+<ul>
+<li><code>key</code>: Parameter name</li>
+<li><code>value</code>: Parameter value</li>
+</ul>
+<h4 id="layerconfiguration">LayerConfiguration</h4>
+<p>The <a href="https://sitmun.github.io/doc-angular/classes/LayerConfiguration.html"><code>LayerConfiguration</code></a>  lass modify the configuration of a layer when interacting with the map (make visible, move the layer ...) by setting the following parameters:</p>
+<ul>
+<li><code>id</code>: Identifier to index</li>
+<li><code>visibility</code>: Layer visibility</li>
+<li><code>opacity</code>: Layer transparency (Transparent) 0-1 (Opaque)</li>
+<li><code>position</code>: Layer position</li>
+</ul>
+<h4 id="layergroup">LayerGroup</h4>
+<p>The <a href="https://sitmun.github.io/doc-angular/classes/LayerGroup.html"><code>LayerGroup</code></a> class configure a Layer group by setting the following parameters:</p>
+<ul>
+<li><code>active</code>: Initially activated (all visible layers)</li>
+<li><code>name</code>: Group Name</li>
+<li><code>id</code>: Group id</li>
+<li><code>layers</code>: Array of child Layers</li>
+</ul>
+<h3 id="configure-base-layers">Configure Base layers</h3>
+<p>To configure the base layers of the map we must use the <code>loadBaseLayersConfiguration</code> method of <a href="https://sitmun.github.io/doc-angular/injectables/MapConfigurationManagerService.html"><code>MapConfigurationManagerService</code></a>, to which we will pass as an parameter an array of objects of type <a href="https://sitmun.github.io/doc-angular/classes/LayerGroup.html"><code>LayerGroup</code></a> each of them with the corresponding <a href="https://sitmun.github.io/doc-angular/classes/Layer.html"><code>Layer</code></a> objects defining the layers to load.</p>
+<p>In the code below we can see an example configuration of the map component base layers:</p>
+<div><pre class="line-numbers"><code class="language-ts">let baseLayersConfiguration = new Array&lt;LayerGroup&gt;();
+
+var layerGroup = new LayerGroup();
+layerGroup.id = &quot;map&quot;;
+layerGroup.name = &quot;MAP&quot;; //Name to be shown in the base layer selector tool
+layerGroup.layers = [];
+
+//Each layer will be a request to a map service
+var layer = new Layer();
+layer[&quot;visibility&quot;] = false;
+// Sets if this layer&#39;s service could be requested for additional information of a selected location on the map
+layer[&quot;queryable&quot;] = false;
+// Opacity for this layer image in the map
+layer[&quot;opacity&quot;] = 1;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+// WMS request transparent parameter
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+// WMS request background color parameter
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Mapa - imgmapa&quot;;
+layer[&quot;serverName&quot;] = &quot;1&quot;;
+// Layer identifier to be used in layer indexation and retrieval
+layer[&quot;id&quot;] = &quot;1&quot;;
+// WMS request image format parameter
+layer[&quot;format&quot;] = &quot;png&quot;;
+// WMS request service version parameter
+layer[&quot;version&quot;] = &quot;1.1.1&quot;;
+// Service request url
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+// Service layers to be requested
+layer[&quot;name&quot;] = &quot;M_PROV_FONS,M_EURB_250M,M_EDIF_1M_141A,M_BTE50_412A,M_EDIF_1M_611A,M_XHE50_111L,M_BTE50_313L_FFCC,M_EIX,M_EIX_sobre_EDIF,M_XCE50_AUTO,M_XCE50_BASICA,M_XCE50_LOCAL,M_XCE50_ALTRES,M_XCE50_AUTO_f,M_XCE50_BASICA_f,M_XCE50_LOCAL_f,M_XCE50_ALTRES_f,M_MUNIS_f,M_MUNIS&quot;;
+// Sets if this layer will be represented by an only image covering the whole map area or by tile set
+layer[&quot;tiled&quot;] = false;
+layerGroup.layers.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = false;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 1;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Mapa - imgmapa_et&quot;;
+layer[&quot;serverName&quot;] = &quot;2&quot;;
+layer[&quot;id&quot;] = &quot;2&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.1&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;M_MUNIS&quot;;
+layer[&quot;tiled&quot;] = false;
+layerGroup.layers.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = false;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 1;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Mapa - imgeix&quot;;
+layer[&quot;serverName&quot;] = &quot;3&quot;;
+layer[&quot;id&quot;] = &quot;3&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.1&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;M_EIX_ET,M_EDI_ET,M_MUNIS_ET&quot;;
+layer[&quot;tiled&quot;] = false;
+layerGroup.layers.push(layer);
+
+baseLayersConfiguration.push(layerGroup);
+
+layerGroup = new LayerGroup();
+layerGroup.id = &quot;hybrid&quot;;
+layerGroup.name = &quot;HYBRID&quot;;
+layerGroup.layers = [];
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = false;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 1;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+//For tiled services the extent of the available data must be defined in order to calculate corretly its tile set
+layer[&quot;extent&quot;] = [254904.96, 4484796.89, 530907.3, 4749795.1];
+layer[&quot;title&quot;] = &quot;Base Aerial - ICC2&quot;;
+layer[&quot;serverName&quot;] = &quot;4&quot;;
+layer[&quot;id&quot;] = &quot;4&quot;;
+layer[&quot;format&quot;] = &quot;image/png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.1&quot;;
+layer[&quot;url&quot;] = &quot;http://mapcache.icc.cat/map/bases/service&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;orto&quot;;
+layer[&quot;tiled&quot;] = true;
+layer[&quot;tileHeight&quot;] = 256;
+layer[&quot;tileWidth&quot;] = 256;
+layerGroup.layers.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = false;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 0.7;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0xFEFEFE&quot;;
+layer[&quot;title&quot;] = &quot;Base Hybrid - imghibrid_fons&quot;;
+layer[&quot;serverName&quot;] = &quot;5&quot;;
+layer[&quot;id&quot;] = &quot;5&quot;;
+layer[&quot;format&quot;] = &quot;image/png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.1&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;M_PROV_FONS,M_EURB_250M,M_EDIF_1M_141A,M_EDIF_1M_611A,M_EIX,M_EIX_sobre_EDIF&quot;;
+layer[&quot;tiled&quot;] = false;
+layerGroup.layers.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = false;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 0.85;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Hybrid - imghibrid_ctra&quot;;
+layer[&quot;serverName&quot;] = &quot;6&quot;;
+layer[&quot;id&quot;] = &quot;6&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.1&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false
+layer[&quot;name&quot;] = &quot;IH_XCE50_AUTO,IH_XCE50_BASICA,IH_XCE50_LOCAL,IH_XCE50_ALTRES,M_XCE50_AUTO_f,M_XCE50_BASICA_f,M_XCE50_LOCAL_f,M_XCE50_ALTRES_f&quot;;
+layer[&quot;tiled&quot;] = false;
+layerGroup.layers.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = false;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 1;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Hybrid - imghibrid_et&quot;;
+layer[&quot;serverName&quot;] = &quot;7&quot;;
+layer[&quot;id&quot;] = &quot;7&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.1&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;M_MUNIS&quot;;
+layer[&quot;tiled&quot;] = false;
+layerGroup.layers.push(layer);
+
+baseLayersConfiguration.push(layerGroup);
+
+this.mapConfigurationManagerService.loadBaseLayersConfiguration(baseLayersConfiguration);</code></pre></div><h3 id="configure-overlay-layers">Configure Overlay layers</h3>
+<p>To configure the overlay layers of the map we must use the <code>loadLayersConfiguration</code> method of <a href="https://sitmun.github.io/doc-angular/injectables/MapConfigurationManagerService.html"><code>MapConfigurationManagerService</code></a>, to which we will pass as an parameter an array of objects of type <a href="https://sitmun.github.io/doc-angular/classes/Layer.html"><code>Layer</code></a> objects defining the layers to load.</p>
+<p>In the code below we can see an example configuration of the map component overlay layers:</p>
+<div><pre class="line-numbers"><code class="language-ts">let overlayLayersConfiguration = new Array&lt;Layer&gt;();
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = true;
+layer[&quot;queryable&quot;] = true;
+// Should a layer have this attribue set to true a
+// Get Feature Information tool will beshown on the map to
+// retrieve the available information of a point clicked on the map
+layer[&quot;opacity&quot;] = 0.2;
+layer[&quot;attributions&quot;] = &quot;© IGME (Instituto Geologico y Minero de España)&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Geology&quot;;
+layer[&quot;serverName&quot;] = &quot;8&quot;;
+layer[&quot;id&quot;] = &quot;8&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.3.0&quot;;
+layer[&quot;url&quot;] = &quot;http://mapas.igme.es/gis/services/Cartografia_Geologica/IGME_Geologico_1M/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;0&quot;;
+layer[&quot;tiled&quot;] = false;
+
+overlayLayersConfiguration.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = true;
+layer[&quot;queryable&quot;] = true;
+layer[&quot;opacity&quot;] = 1.0;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Transport&quot;;
+layer[&quot;serverName&quot;] = &quot;9&quot;;
+layer[&quot;id&quot;] = &quot;9&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.3.0&quot;;
+layer[&quot;url&quot;] = &quot;http://servicios.idee.es/wms-inspire/transportes&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;TN.RailTransportNetwork.RailwayLink&quot;;
+layer[&quot;tiled&quot;] = false;
+
+overlayLayersConfiguration.push(layer);
+
+this.mapConfigurationManagerService.loadLayersConfiguration(overlayLayersConfiguration);</code></pre></div><h3 id="configure-situation-map">Configure Situation Map</h3>
+<p>To configure the situation map of the map component we must use the <code>loadSituationMapConfiguration</code> method of <a href="https://sitmun.github.io/doc-angular/injectables/MapConfigurationManagerService.html"><code>MapConfigurationManagerService</code></a>. The <a href="https://sitmun.github.io/doc-angular/classes/Layer.html"><code>Layer</code></a>, to which we will pass as an parameter an array of objects of type The <a href="https://sitmun.github.io/doc-angular/classes/LayerGroup.html"><code>LayerGroup</code></a>  each of them with the corresponding <a href="https://sitmun.github.io/doc-angular/classes/Layer.html"><code>Layer</code></a> objects defining the layers to load as situation map.</p>
+<p>In the code below we can see an example configuration of the map component situation map:</p>
+<div><pre class="line-numbers"><code class="language-ts">// Set Overview Map (Situation map tool), if left undefined the currently displayed baselayer group configuration will be displayed in
+// the situation map tool
+let situationMapConfiguration = new Array&lt;Layer&gt;();
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = true;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 1.0;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Mapa - imgeix&quot;;
+layer[&quot;serverName&quot;] = &quot;10&quot;;
+layer[&quot;id&quot;] = &quot;10&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.0&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;M_EIX_ET,M_EDI_ET,M_MUNIS_ET&quot;;
+layer[&quot;tiled&quot;] = false;
+
+situationMapConfiguration.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = true;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 1.0;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Mapa - imgmapa&quot;;
+layer[&quot;serverName&quot;] = &quot;10&quot;;
+layer[&quot;id&quot;] = &quot;10&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.0&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;M_PROV_FONS,M_EURB_250M,M_EDIF_1M_141A,M_BTE50_412A,M_EDIF_1M_611A,M_XHE50_111L,M_BTE50_313L_FFCC&quot;;
+layer[&quot;tiled&quot;] = false;
+
+situationMapConfiguration.push(layer);
+
+layer = new Layer();
+layer[&quot;visibility&quot;] = true;
+layer[&quot;queryable&quot;] = false;
+layer[&quot;opacity&quot;] = 1.0;
+layer[&quot;attributions&quot;] = &quot;© Institut Cartogràfíc i Geològic de Catalunya&quot;;
+layer[&quot;url_transparent&quot;] = &quot;TRUE&quot;;
+layer[&quot;url_bgcolor&quot;] = &quot;0x000000&quot;;
+layer[&quot;title&quot;] = &quot;Base Mapa - imgmapa_et&quot;;
+layer[&quot;serverName&quot;] = &quot;10&quot;;
+layer[&quot;id&quot;] = &quot;10&quot;;
+layer[&quot;format&quot;] = &quot;png&quot;;
+layer[&quot;version&quot;] = &quot;1.1.0&quot;;
+layer[&quot;url&quot;] = &quot;http://sitmun.diba.cat/arcgis/services/PUBLIC/GCA_WEB/MapServer/WMSServer&quot;;
+layer[&quot;isBaseLayer&quot;] = false;
+layer[&quot;name&quot;] = &quot;M_MUNIS&quot;;
+layer[&quot;tiled&quot;] = false;
+
+situationMapConfiguration.push(layer);
+
+this.mapConfigurationManagerService.loadSituationMapConfiguration(situationMapConfiguration);</code></pre></div><h2 id="build-and-run-development">Build and run (development)</h2>
+<h3 id="with-spring-boot">With Spring Boot</h3>
+<ul>
+<li>Build with <code>./gradlew assemble</code>.</li>
+<li>Run <code>./gradlew bootRun</code> and open <a href="http://localhost:8080">http://localhost:8080</a>.</li>
+</ul>
+<h3 id="with-docker">With Docker</h3>
+<ul>
+<li>Build  with <code>./gradlew assemble</code>.</li>
+<li>Run <code>./gradlew docker</code> to build the docker image.</li>
+<li>Run <code>./gradlew dockerRun</code> to start the container and open <a href="http://localhost:8080">http://localhost:8080</a> (wait a few seconds).</li>
+<li>To stop and to remove the container you can run <code>./gradlew dockerStop</code>.</li>
+</ul>
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'additional-page';
+            var COMPODOC_CURRENT_PAGE_URL = 'usage.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
