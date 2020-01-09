@@ -62,7 +62,7 @@ task npmBuildSitmunFrontendCore(type: NpmTask, dependsOn: ['npmBuildAngularHal',
     args = ['run-script', 'build-sitmun-frontend-core']
 }
 
-//task installModules(dependsOn: npmBuildSitmunFrontendCore)
+task install(dependsOn: npmBuildSitmunFrontendCore)
 
 task npmCreateCompodocs(type: NpmTask, dependsOn: ['npmBuildSitmunFrontendCore', 'npmBuildAngularHal', 'npmInstall']) {
   description = 'Create compodocs por sitmun-plugin-core.'
