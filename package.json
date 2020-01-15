@@ -15,7 +15,9 @@
   "dependencies": {
     "@angular/common": "~6.1.0",
     "@angular/core": "~6.1.0",
-    "@sitmun/frontend-core": "^0.7.0"
+    "@angular/router": "~6.1.0",
+    "@ngx-translate/core": "~10.0.2",
+    "@ngx-translate/http-loader": "~3.0.1"
   },
   "devDependencies": {
     "@angular/compiler": "~6.1.0",
