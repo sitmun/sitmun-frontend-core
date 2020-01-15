@@ -57,3 +57,4 @@ export * from './application/application-parameter.model';
 export * from './application/application-parameter.service';
 export * from './map/map-configuration-manager.service';
 export * from './sitmun-frontend-core.module';
+export * from './angular-hal/src/lib/angular-hal.module';

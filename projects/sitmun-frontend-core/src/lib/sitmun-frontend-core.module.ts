@@ -3,7 +3,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AngularHalModule } from 'angular-hal';
+//import { AngularHalModule } from '../../lib/angular-hal';
 
 import {TerritoryService} from './territory/territory.service';
 import {TerritoryTypeService} from './territory/territory-type.service';

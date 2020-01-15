@@ -2,7 +2,7 @@ import { User } from '../user/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
-import {RestService} from 'angular-hal'; 
+import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Account manager service */
 @Injectable()

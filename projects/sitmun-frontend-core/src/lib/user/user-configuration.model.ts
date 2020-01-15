@@ -1,4 +1,4 @@
-import {Resource} from 'angular-hal'; 
+import {Resource} from '../angular-hal/src/lib/resource';
 import { Role } from '../role/role.model';
 import { Territory } from '../territory/territory.model';
 import { User } from './user.model';

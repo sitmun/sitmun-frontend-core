@@ -2,7 +2,7 @@ import { Tree } from './tree.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import {RestService} from 'angular-hal';  
+import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Tree manager service */
 @Injectable()
