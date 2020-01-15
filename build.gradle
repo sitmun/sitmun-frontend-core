@@ -52,21 +52,21 @@ sonarqube {
 
 def cacheDir = project.hasProperty("cacheDir")? project.properties.cacheDir : "${project.buildDir}" 
 
-task npmBuildAngularHal(type: NpmTask, dependsOn: npmInstall) {
-    description = 'Build module angular-hal.'
-    args = ['run-script', 'build-angular-hal']
-}
-
-task npmBuildSitmunFrontendCore(type: NpmTask, dependsOn: ['npmBuildAngularHal', 'npmInstall']) {
+task npmBuildSitmunFrontendCore(type: NpmTask, dependsOn: ['npmInstall']) {
     description = 'Build module sitmun-frontend-core.'
     args = ['run-script', 'build-sitmun-frontend-core']
 }
 
 task install(dependsOn: npmBuildSitmunFrontendCore)
 
-task npmCreateCompodocs(type: NpmTask, dependsOn: ['npmBuildSitmunFrontendCore', 'npmBuildAngularHal', 'npmInstall']) {
+task npmCreateCompodocs(type: NpmTask, dependsOn: ['npmBuildSitmunFrontendCore', 'npmInstall']) {
   description = 'Create compodocs por sitmun-plugin-core.'
   args = ['run-script', 'compodoc']
+}
+
+task npmPublish(type: NpmTask, dependsOn: ['npmBuildSitmunFrontendCore', 'npmInstall']) {
+  description = 'Publish @sitmun/frontend-core to GitHub packages registry'
+  args = ['run-script', 'publish']
 }
 
 

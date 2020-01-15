@@ -3,46 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-hal": {
-      "root": "projects/angular-hal",
-      "sourceRoot": "projects/angular-hal/src",
-      "projectType": "library",
-      "prefix": "angular-hal",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/angular-hal/tsconfig.lib.json",
-            "project": "projects/angular-hal/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "projects/angular-hal/ng-package.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/angular-hal/src/test.ts",
-            "tsConfig": "projects/angular-hal/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-hal/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/angular-hal/tsconfig.lib.json",
-              "projects/angular-hal/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "sitmun-frontend-core": {
       "root": "projects/sitmun-frontend-core",
       "sourceRoot": "projects/sitmun-frontend-core/src",
