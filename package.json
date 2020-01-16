@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng ei2e",
     "publish": "npm publish ./dist/sitmun-frontend-core",
-    "compodoc": "npx compodoc -p tsconfig.json --output ./docs-build/doc-angular -n 'SITMUN Frontend Core Angular Library documentation' --includes projects/sitmun-frontend-core/doc"
+    "compodoc": "npx compodoc -p tsconfig.json --output ./docs-build/doc-frontend-core -n 'SITMUN Frontend Core Angular Library documentation'"
   },
   "private": true,
   "dependencies": {
