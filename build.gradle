@@ -2,8 +2,7 @@ buildscript {
   repositories {
     jcenter()
     mavenCentral()
-    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
-    //mavenLocal()
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }    
   }
   dependencies {    
     classpath "org.ajoberstar:gradle-git:1.5.1"
@@ -23,13 +22,6 @@ apply plugin: 'checkstyle'
 
 
 
-
-group = 'org.sitmun'
-if (project.hasProperty("customVersion")) {
-  version = project.customVersion
-} else {
-  version = "${sitmun_version}"
-}
 
 repositories {
   mavenLocal()
