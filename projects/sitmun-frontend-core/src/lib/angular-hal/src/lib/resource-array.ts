@@ -7,7 +7,7 @@ import {ArrayInterface} from './array-interface';
 import {ResourceHelper} from './resource-helper';
 import {Resource} from './resource';
 import * as url from 'url';
-import {Observable} from 'rxjs/internal/Observable';
+import {Observable} from 'rxjs';
 
 /** REST array of resource implementation */
 export class ResourceArray<T extends Resource> implements ArrayInterface<T> {

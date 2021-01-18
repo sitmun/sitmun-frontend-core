@@ -4,9 +4,12 @@ import {CartographyGroup} from './cartography-group.model';
  * Background model
  */
 export class Background extends Resource {
+  /** id */
+  public id: number;  
+  
   /** name*/
   public name: string;
-    
+
   /** description*/
   public description: string;
   

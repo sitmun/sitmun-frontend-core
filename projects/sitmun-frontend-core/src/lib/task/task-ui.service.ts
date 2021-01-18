@@ -1,17 +1,16 @@
 import { TaskUI } from './task-ui.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Task UI manager service */
 @Injectable()
 export class TaskUIService extends RestService<TaskUI> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public CONNECTION_API = this.API + '/task-uis';
+  public CONNECTION_API = 'task-uis';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -30,7 +29,7 @@ export class TaskUIService extends RestService<TaskUI> {
     if (item._links!=null) {      
       result = this.http.put(item._links.self.href, item);
     } else {
-      result = this.http.post(this.CONNECTION_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.CONNECTION_API) , item);
     }
     return result;
   }

@@ -6,6 +6,8 @@ import { UserPosition } from './user-position.model';
  * User model
  */
 export class User extends Resource {
+  /** id */
+  public id: number;  
   /** username */
   public username: string;
   /** password */

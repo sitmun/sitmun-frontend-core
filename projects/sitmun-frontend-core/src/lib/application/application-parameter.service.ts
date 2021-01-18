@@ -1,17 +1,16 @@
 import { ApplicationParameter } from './application-parameter.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Application parameter manager service */
 @Injectable() 
 export class ApplicationParameterService extends RestService<ApplicationParameter> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public APPLICATION_PARAMETER_API = this.API + '/application-parameters';
+  public APPLICATION_PARAMETER_API = 'application-parameters';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -38,7 +37,7 @@ export class ApplicationParameterService extends RestService<ApplicationParamete
     } else {
       item.application = item.application._links.self.href;
   
-      result = this.http.post(this.APPLICATION_PARAMETER_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.APPLICATION_PARAMETER_API) , item);
     }
     return result;
   }

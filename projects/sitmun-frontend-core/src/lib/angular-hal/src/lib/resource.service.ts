@@ -11,7 +11,7 @@ import {ResourceArray} from './resource-array';
 import {ExternalService} from './external.service';
 import {HalOptions} from './rest.service';
 import {SubTypeBuilder} from './subtype-builder';
-import {Observable} from 'rxjs/internal/Observable';
+import {Observable} from 'rxjs';
 
 /** ResourceService */
 @Injectable()
@@ -29,7 +29,7 @@ export class ResourceService {
 
     /** get all resources from a base URI of a given type */
     public getAll<T extends Resource>(type: { new(): T }, resource: string, _embedded: string, options?: HalOptions, subType?: SubTypeBuilder): Observable<ResourceArray<T>> {
-        const uri = this.getResourceUrl(resource);
+        const uri = this.getResourceUrl(resource).concat('?projection=view');
         const params = ResourceHelper.optionParams(new HttpParams(), options);
         const result: ResourceArray<T> = ResourceHelper.createEmptyResult<T>(_embedded);
 
@@ -42,7 +42,7 @@ export class ResourceService {
 
     /** get resource from a base URI and a given id */
     public get<T extends Resource>(type: { new(): T }, resource: string, id: any): Observable<T> {
-        const uri = this.getResourceUrl(resource).concat('/', id);
+        const uri = this.getResourceUrl(resource).concat('/', id, '?projection=view');
         const result: T = new type();
 
         this.setUrlsResource(result);
@@ -237,7 +237,7 @@ export class ResourceService {
     }
 
     /** get resource URL from a given path*/
-    private getResourceUrl(resource?: string): string {
+    public getResourceUrl(resource?: string): string {
         let url = ResourceService.getURL();
         if (!url.endsWith('/')) {
             url = url.concat('/');

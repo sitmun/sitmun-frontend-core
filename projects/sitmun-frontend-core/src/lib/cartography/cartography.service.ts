@@ -7,11 +7,9 @@ import {RestService} from '../angular-hal/src/lib/rest.service';
 /** Cartography manager service */
 @Injectable()
 export class CartographyService extends RestService<Cartography> {
-  
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public CARTOGRAPHY_API = this.API + '/cartographies';
+  public CARTOGRAPHY_API = 'cartographies';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -81,7 +79,7 @@ export class CartographyService extends RestService<Cartography> {
 
            
     } else {
-      result = this.http.post(this.CARTOGRAPHY_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.CARTOGRAPHY_API) , item);
     }
     return result;
   }

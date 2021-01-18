@@ -1,17 +1,15 @@
 import { TreeNode } from './tree-node.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Tree node manager service */
 @Injectable() 
 export class TreeNodeService extends RestService<TreeNode> {
   
-  /** API base path */
-  public API = '/api';
   /** API resource path */
-  public TREE_NODE_API = this.API + '/tree-nodes';
+  public TREE_NODE_API = 'tree-nodes';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -60,7 +58,7 @@ export class TreeNodeService extends RestService<TreeNode> {
       if (item.cartography && item.cartography._links && item.cartography._links.self) {
         item.cartography = item.cartography._links.self.href;
       }      
-      result = this.http.post(this.TREE_NODE_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.TREE_NODE_API) , item);
     }
     return result;
   }

@@ -1,17 +1,16 @@
 import { TaskAvailability } from './task-availability.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Task availability manager service */
 @Injectable() 
 export class TaskAvailabilityService extends RestService<TaskAvailability> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public TASK_AVAILABILITY_API = this.API + '/task-availabilities';
+  public TASK_AVAILABILITY_API = 'task-availabilities';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -43,7 +42,7 @@ export class TaskAvailabilityService extends RestService<TaskAvailability> {
       item.territory = item.territory._links.self.href;
       item.task = item.task._links.self.href;
   
-      result = this.http.post(this.TASK_AVAILABILITY_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.TASK_AVAILABILITY_API) , item);
     }
     return result;
   }

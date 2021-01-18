@@ -8,10 +8,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class UserService extends RestService<User> {
   
-  /** API base path */
-  public API = '/api';
   /** API resource path */
-  public USER_API = this.API + '/users';
+  public USER_API ='users';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -38,7 +36,7 @@ export class UserService extends RestService<User> {
   /** change password o given user id */
   changePassword(id,item: any): Observable<any> {
     let result: Observable<Object>;
-    result = this.http.post(this.USER_API+"/"+id+"/change-password" , item);
+    result = this.http.post(this.resourceService.getResourceUrl(this.USER_API+"/"+id+"/change-password") , item);
     return result;
   }
 }

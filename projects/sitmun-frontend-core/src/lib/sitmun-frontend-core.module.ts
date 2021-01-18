@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 //import { AngularHalModule } from '../../lib/angular-hal';
-
+import {CodeListService} from './codelist/codelist.service';
 import {TerritoryService} from './territory/territory.service';
 import {TerritoryTypeService} from './territory/territory-type.service';
+import {TerritoryGroupTypeService} from './territory/territory-group-type.service';
 import {UserPositionService} from './user/user-position.service';
 import {UserConfigurationService} from './user/user-configuration.service';
 import {RoleService} from './role/role.service';
@@ -65,7 +66,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   declarations: [
     HasAnyAuthorityDirective,
-    HasAnyAuthorityOnTerritoryDirective
+    HasAnyAuthorityOnTerritoryDirective,
   ],
   exports: [
     HasAnyAuthorityDirective,
@@ -78,8 +79,10 @@ export class SitmunFrontendCoreModule {
     return {
       ngModule: SitmunFrontendCoreModule,
       providers: [
+        CodeListService,
         TerritoryService,
         TerritoryTypeService,
+        TerritoryGroupTypeService,
         RoleService,
         AccountService,
         AuthService,

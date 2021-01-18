@@ -1,17 +1,16 @@
 import { ApplicationBackground } from './application-background.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Application background manager service */
 @Injectable() 
 export class ApplicationBackgroundService extends RestService<ApplicationBackground> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public APPLICATION_BACKGROUND_API = this.API + '/application-backgrounds';
+  public APPLICATION_BACKGROUND_API ='application-backgrounds';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -44,7 +43,7 @@ export class ApplicationBackgroundService extends RestService<ApplicationBackgro
       item.application = item.application._links.self.href;
       item.background = item.background._links.self.href;
   
-      result = this.http.post(this.APPLICATION_BACKGROUND_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.APPLICATION_BACKGROUND_API) , item);
     }
     return result;
   }

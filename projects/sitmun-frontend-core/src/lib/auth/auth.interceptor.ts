@@ -3,9 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 
 /** Interceptor for authentication token in API requests */
 export class AuthInterceptor implements HttpInterceptor {
-    /** API base path*/
-    public SERVER_API_URL = '/api';
-    public TEST_SERVER_API_URL = 'http://localhost:8080/api';
+
     /** constructor*/
     constructor(
     ) {

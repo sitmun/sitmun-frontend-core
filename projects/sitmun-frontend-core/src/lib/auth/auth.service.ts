@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs-compat';
+import {ResourceService} from '../angular-hal/src/lib/resource.service';
 //import * as moment from 'moment';
 
 /** Authentication service*/
 @Injectable()
 export class AuthService {
     
-    /** API base URL */
-    public SERVER_API_URL = '/api';
-    
+  /** API resource path */
+  public AUTH_API = 'authenticate';
+
     /** constructor*/
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private resourceService: ResourceService
     ) {}
     
     /** get current user jwt token from session storage*/
@@ -27,21 +29,16 @@ export class AuthService {
             username: credentials.username,
             password: credentials.password
         };
-        return this.http.post(this.SERVER_API_URL + '/authenticate', data, {observe : 'response'}).map(authenticateSuccess.bind(this));
+        return this.http.post(this.resourceService.getResourceUrl(this.AUTH_API), data, {observe : 'response'}).map(authenticateSuccess.bind(this));
 
         function authenticateSuccess(resp) {
-            const bearerToken = resp.headers.get('Authorization');
-            if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-                const jwt = bearerToken.slice(7, bearerToken.length);
+            if (resp.ok) {
+                const jwt = resp.body.id_token;
                 this.storeAuthenticationToken(jwt);
                 //const expiresAt = moment().add( resp.headers.get('Token-Validity'),'milisecond');
                 //sessionStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
                 return jwt;
-            }
-            
-            
-
-            
+            }                    
         }
     }
     

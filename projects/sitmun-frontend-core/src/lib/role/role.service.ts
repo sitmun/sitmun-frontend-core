@@ -8,10 +8,8 @@ import {RestService} from '../angular-hal/src/lib/rest.service';
 @Injectable()
 export class RoleService extends RestService<Role> {
   
-  /** API base path */
-  public API = '/api';
   /** API resource path */
-  public ROLE_API = this.API + '/roles';
+  public ROLE_API = 'roles';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -30,7 +28,7 @@ export class RoleService extends RestService<Role> {
     if (item._links!=null) {
       result = this.http.put(item._links.self.href, item);
     } else {
-      result = this.http.post(this.ROLE_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.ROLE_API) , item);
     }
     return result;
   }

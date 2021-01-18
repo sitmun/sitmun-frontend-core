@@ -5,10 +5,16 @@ import { TerritoryType } from './territory-type.model';
  * Territory model
  */
 export class Territory extends Resource {
+  /** id */
+  public id: number;  
+  /** code */
+  public code: string;
   /** name */
   public name: string;
   /** address*/
-  public address: string;
+  public territorialAuthorityAddress: string;
+  /** admin */
+  public territorialAuthorityName: string;
   /** whether territory is blocked*/
   public blocked: boolean;
   /** comments*/
@@ -16,17 +22,22 @@ export class Territory extends Resource {
   /** system created date*/
   public createdDate: any;
   /** contact email */  
-  public email: string;
+  public territorialAuthorityEmail: string;
   /** extension */
-  public ext: string;
+  public extent: string;
   /** logo image URL */
-  public logo: string;
+  public territorialAuthorityLogo: string;
   /** contact organization name */
-  public organizationName: string;
+  // public organizationName: string;
   /** scope*/
   public scope: string;
   /** type */  
   public type: TerritoryType;
+  /** group type */
+  groupType: {
+    id: 0,
+    name: string
+  };
   /** territory members*/
   public members: Territory[];
 

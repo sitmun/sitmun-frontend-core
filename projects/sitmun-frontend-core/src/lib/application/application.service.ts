@@ -1,17 +1,16 @@
 import { Application } from './application.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Application manager service */
 @Injectable()
 export class ApplicationService extends RestService<Application> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public APPLICATION_API = this.API + '/applications';
+  public APPLICATION_API = 'applications';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -60,7 +59,7 @@ export class ApplicationService extends RestService<Application> {
 
            
     } else {
-      result = this.http.post(this.APPLICATION_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.APPLICATION_API) , item);
     }
     return result;
   }

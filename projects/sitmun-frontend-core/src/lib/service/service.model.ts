@@ -5,6 +5,8 @@ import {ServiceParameter} from './service-parameter.model';
  * Service model
  */
 export class Service extends Resource {
+  /** id */
+  public id: number;
   /** name*/
   public name: string;
     
@@ -12,10 +14,10 @@ export class Service extends Resource {
   public type: string;
 
   /** url*/  
-  public url: string;
+  public serviceURL: string;
 
   /** projections*/  
-  public projections: string;
+  public supportedSRS: string;
   
   /** legend*/
   public legend: string;

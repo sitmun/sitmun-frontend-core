@@ -1,7 +1,7 @@
 import { Territory } from './territory.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 import { TerritoryType } from './territory-type.model';
 
@@ -9,10 +9,9 @@ import { TerritoryType } from './territory-type.model';
 @Injectable()
 export class TerritoryTypeService extends RestService<TerritoryType> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public TERRITORYTYPE_API = this.API + '/territory-types';
+  public TERRITORYTYPE_API = 'territory-types';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -31,7 +30,7 @@ export class TerritoryTypeService extends RestService<TerritoryType> {
     if (item._links!=null) {
       result = this.http.put(item._links.self.href, item);
     } else {
-      result = this.http.post(this.TERRITORYTYPE_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.TERRITORYTYPE_API) , item);
     }
     return result;
   }

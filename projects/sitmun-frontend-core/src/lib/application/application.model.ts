@@ -13,6 +13,9 @@ export const TERRITORIAL_APP_NAME:string  = "Aplicación Territorial";
  * Application model
  */
 export class Application extends Resource {
+  /** id */
+  public id: number;  
+  
   /** name*/
   public name: string;
 
@@ -35,10 +38,10 @@ export class Application extends Resource {
   public trees : Tree[];
   
   /** scales (comma-separated values)*/
-  public scales: string;
+  public scales: string[];
   
   /** projections(comma-separated EPSG codes)*/
-  public projections: string;
+  public srs: string;
   
   /** whether application tree will auto refresh*/  
   public treeAutoRefresh: Boolean;

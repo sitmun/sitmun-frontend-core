@@ -1,17 +1,16 @@
 import { CartographyAvailability } from './cartography-availability.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** CartographyAvailability manager service */
 @Injectable() 
 export class CartographyAvailabilityService extends RestService<CartographyAvailability> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public CARTOGRAPHY_AVAILABILITY_API = this.API + '/cartography-availabilities';
+  public CARTOGRAPHY_AVAILABILITY_API = 'cartography-availabilities';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -43,7 +42,7 @@ export class CartographyAvailabilityService extends RestService<CartographyAvail
       item.territory = item.territory._links.self.href;
       item.cartography = item.cartography._links.self.href;
   
-      result = this.http.post(this.CARTOGRAPHY_AVAILABILITY_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.CARTOGRAPHY_AVAILABILITY_API) , item);
     }
     return result;
   }

@@ -6,7 +6,7 @@ import {Sort} from './sort';
 import {ResourceService} from './resource.service';
 import {SubTypeBuilder} from './subtype-builder';
 import {isNullOrUndefined} from 'util';
-import {Observable} from 'rxjs/internal/Observable';
+import {Observable} from 'rxjs';
 import {Injector} from "@angular/core";
 
 /** HAL param data model */
@@ -23,7 +23,7 @@ export class RestService<T extends Resource> {
     /** resource array */
     public resourceArray: ResourceArray<T>;
     /** resource service */
-    private resourceService: ResourceService;
+    public resourceService: ResourceService;
     /** _embedded field name */
     private _embedded: string = '_embedded';
 

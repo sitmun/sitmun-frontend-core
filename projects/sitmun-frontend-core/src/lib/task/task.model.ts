@@ -14,6 +14,8 @@ export const GEOADMIN_TREE_TASK_ID:string  = "geoadmin";
 import { TaskUI } from './task-ui.model';
 /** Task model */
 export class Task extends Resource {
+  /** id */
+  public id: number;
   /** name */  
   public name: string;
   /** order*/

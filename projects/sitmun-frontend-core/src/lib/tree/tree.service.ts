@@ -1,17 +1,15 @@
 import { Tree } from './tree.model';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
 /** Tree manager service */
 @Injectable()
 export class TreeService extends RestService<Tree> {
   
-  /** API base path */
-  public API = '/api';
   /** API resource path */
-  public TREE_API = this.API + '/trees';
+  public TREE_API = 'trees';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -31,7 +29,7 @@ export class TreeService extends RestService<Tree> {
       
       result = this.http.put(item._links.self.href, item);
     } else {
-      result = this.http.post(this.TREE_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.TREE_API) , item);
     }
     return result;
   }

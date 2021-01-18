@@ -7,11 +7,9 @@ import { Observable } from 'rxjs';
 /** User configuration manager service */
 @Injectable()
 export class UserConfigurationService  extends RestService<UserConfiguration> {
-  
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public USER_CONFIGURATION_API = this.API + '/user-configurations';
+  public USER_CONFIGURATION_API = 'user-configurations';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -49,7 +47,7 @@ export class UserConfigurationService  extends RestService<UserConfiguration> {
       item.role = item.role._links.self.href;
       item.user = item.user._links.self.href;
   
-      result = this.http.post(this.USER_CONFIGURATION_API , item);
+      result = this.http.post(this.resourceService.getResourceUrl(this.USER_CONFIGURATION_API) , item);
     }
     return result;
   }

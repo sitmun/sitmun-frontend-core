@@ -4,14 +4,14 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
 
+
 /** Account manager service */
 @Injectable()
 export class AccountService extends RestService<User> {
   
-  /** API base path */
-  public API = '/api';
+
   /** API resource path */
-  public ACCOUNT_API = this.API + '/account';
+  public ACCOUNT_API = 'account';
 
   /** constructor */
   constructor(injector: Injector,private http: HttpClient) {
@@ -21,14 +21,14 @@ export class AccountService extends RestService<User> {
   /** get logged in user account*/
   get(): Observable<any> {
     let result: Observable<Object>;
-    result = this.http.get(this.ACCOUNT_API);
+    result = this.http.get(this.resourceService.getResourceUrl(this.ACCOUNT_API));
     return result;
   }
   
   /** save account*/
   save(item: any): Observable<any> {
     let result: Observable<Object>;
-    result = this.http.post(this.ACCOUNT_API , item);
+    result = this.http.post(this.resourceService.getResourceUrl(this.ACCOUNT_API) , item);
 
     return result;
   }
@@ -36,7 +36,7 @@ export class AccountService extends RestService<User> {
   /** change logged in user account*/  
   changePassword(item: any): Observable<any> {
     let result: Observable<Object>;
-    result = this.http.post(this.ACCOUNT_API+"/change-password" , item);
+    result = this.http.post(this.resourceService.getResourceUrl(this.ACCOUNT_API+"/change-password") , item);
     return result;
   }
   

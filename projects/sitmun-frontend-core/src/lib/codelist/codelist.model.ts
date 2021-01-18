@@ -1,14 +1,16 @@
 import {Resource} from '../angular-hal/src/lib/resource';
-
 /**
- * Role model
+ * Connection model
  */
-export class Role extends Resource {
+export class CodeList extends Resource {
   /** id */
   public id: number;
   /** name*/
-  public name: string;
-  /** comments*/
+  public codeListName: string;
+  /** type*/
+  public value: string;
+  /** user*/
   public description: string;
+
 
 }
