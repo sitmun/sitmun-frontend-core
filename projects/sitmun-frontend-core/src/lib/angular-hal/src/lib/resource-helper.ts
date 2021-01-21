@@ -120,7 +120,7 @@ export class ResourceHelper {
     static instantiateResourceCollection<T extends Resource>(type: { new(): T }, payload: any,
                                                              result: ResourceArray<T>, builder?: SubTypeBuilder,embeddedName?:String): ResourceArray<T> {
         for (const embeddedClassName of Object.keys(payload[result._embedded])) {
-            if(embeddedName && embeddedClassName==embeddedName){
+            if(!embeddedName || (embeddedName && embeddedClassName==embeddedName)){
                 let embedded: any = payload[result._embedded];
                 const items = embedded[embeddedClassName];
                 for (let item of items) {
