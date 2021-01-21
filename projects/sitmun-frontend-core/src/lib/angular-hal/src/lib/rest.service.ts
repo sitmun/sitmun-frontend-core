@@ -50,8 +50,8 @@ export class RestService<T extends Resource> {
     }
 
     /** get all resources with optional options an subType params */
-    public getAll(options?: HalOptions, subType?: SubTypeBuilder): Observable<T[]> {
-        return this.resourceService.getAll(this.type, this.resource, this._embedded, options, subType).pipe(
+    public getAll(options?: HalOptions, subType?: SubTypeBuilder, embeddedName?:String): Observable<T[]> {
+        return this.resourceService.getAll(this.type, this.resource, this._embedded, options, subType,embeddedName).pipe(
             mergeMap((resourceArray: ResourceArray<T>) => {
                 if (options && options.notPaged && !isNullOrUndefined(resourceArray.first_uri)) {
                     options.notPaged = false;

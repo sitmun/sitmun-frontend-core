@@ -39,7 +39,7 @@ export class ServiceService extends RestService<Service> {
 
     if (item._links!=null) {
       //update relations
-      delete item.connection;        
+      /*delete item.connection;        
       
       if (serviceConnection._links.self.href==''){
          item.deleteRelation('connection',serviceConnection).subscribe(result => {     
@@ -53,7 +53,7 @@ export class ServiceService extends RestService<Service> {
 
       
             }, error => console.error(error));           
-       } 
+       } */
        
          
       result = this.http.put(item._links.self.href, item);

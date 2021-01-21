@@ -118,16 +118,18 @@ export class ResourceHelper {
 
     /** instantiate a ResourceCollection from response embedded data*/
     static instantiateResourceCollection<T extends Resource>(type: { new(): T }, payload: any,
-                                                             result: ResourceArray<T>, builder?: SubTypeBuilder): ResourceArray<T> {
+                                                             result: ResourceArray<T>, builder?: SubTypeBuilder,embeddedName?:String): ResourceArray<T> {
         for (const embeddedClassName of Object.keys(payload[result._embedded])) {
-            let embedded: any = payload[result._embedded];
-            const items = embedded[embeddedClassName];
-            for (let item of items) {
-                let instance: T = new type();
-                instance = this.searchSubtypes(builder, embeddedClassName, instance);
+            if(embeddedName && embeddedClassName==embeddedName){
+                let embedded: any = payload[result._embedded];
+                const items = embedded[embeddedClassName];
+                for (let item of items) {
+                    let instance: T = new type();
+                    instance = this.searchSubtypes(builder, embeddedClassName, instance);
 
-                this.instantiateResource(instance, item);
-                result.push(instance);
+                    this.instantiateResource(instance, item);
+                    result.push(instance);
+                }
             }
         }
 

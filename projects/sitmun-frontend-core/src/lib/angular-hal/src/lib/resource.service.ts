@@ -28,7 +28,7 @@ export class ResourceService {
     }
 
     /** get all resources from a base URI of a given type */
-    public getAll<T extends Resource>(type: { new(): T }, resource: string, _embedded: string, options?: HalOptions, subType?: SubTypeBuilder): Observable<ResourceArray<T>> {
+    public getAll<T extends Resource>(type: { new(): T }, resource: string, _embedded: string, options?: HalOptions, subType?: SubTypeBuilder, embeddedName?:String): Observable<ResourceArray<T>> {
         const uri = this.getResourceUrl(resource).concat('?projection=view');
         const params = ResourceHelper.optionParams(new HttpParams(), options);
         const result: ResourceArray<T> = ResourceHelper.createEmptyResult<T>(_embedded);
@@ -36,7 +36,7 @@ export class ResourceService {
         this.setUrls(result);
         result.sortInfo = options ? options.sort : undefined;
         let observable = ResourceHelper.getHttp().get(uri, { headers: ResourceHelper.headers, params: params });
-        return observable.pipe(map(response => ResourceHelper.instantiateResourceCollection(type, response, result, subType)),
+        return observable.pipe(map(response => ResourceHelper.instantiateResourceCollection(type, response, result, subType,embeddedName)),
             catchError(error => observableThrowError(error)));
     }
 
