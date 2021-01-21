@@ -24,6 +24,7 @@ import {ServiceParameterService} from './service/service-parameter.service';
 import {CartographyService} from './cartography/cartography.service';
 import {CartographyAvailabilityService} from './cartography/cartography-availability.service';
 import {CartographyGroupService} from './cartography/cartography-group.service';
+import {CartographyParameterService} from './cartography/cartography-parameter.service';
 import {BackgroundService} from './cartography/background.service';
 import {TreeService} from './tree/tree.service';
 import {TreeNodeService} from './tree/tree-node.service';
@@ -39,7 +40,6 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { HasAnyAuthorityOnTerritoryDirective } from './auth/has-any-authority-on-territory.directive';
 import { LoginService } from './auth/login.service';
 import { AccountService } from './account/account.service';
-import { UserPosition} from './user/user-position.model';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
@@ -99,6 +99,7 @@ export class SitmunFrontendCoreModule {
         CartographyService,
         CartographyGroupService,
         CartographyAvailabilityService,
+        CartographyParameterService,
         BackgroundService,
         TreeService,
         TreeNodeService,
