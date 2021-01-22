@@ -1,4 +1,5 @@
 import {Resource} from '../angular-hal/src/lib/resource';
+import { TerritoryGroupType } from './territory-group-type.model';
 import { TerritoryType } from './territory-type.model';
 
 /**
@@ -34,10 +35,7 @@ export class Territory extends Resource {
   /** type */  
   public type: TerritoryType;
   /** group type */
-  groupType: {
-    id: 0,
-    name: string
-  };
+  public groupType: TerritoryGroupType;
   /** territory members*/
   public members: Territory[];
 

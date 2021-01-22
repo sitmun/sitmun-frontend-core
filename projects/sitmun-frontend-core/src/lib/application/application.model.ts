@@ -27,6 +27,11 @@ export class Application extends Resource {
   
   /** theme*/
   public theme: string;
+
+    
+  /** urlTemplate*/
+  public jspTemplate: string;
+  
   
   /** system created date*/
   public createdDate: any;
