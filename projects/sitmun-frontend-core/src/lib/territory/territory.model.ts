@@ -19,7 +19,7 @@ export class Territory extends Resource {
   /** whether territory is blocked*/
   public blocked: boolean;
   /** comments*/
-  public comments: string;
+  public note: string;
   /** system created date*/
   public createdDate: any;
   /** contact email */  

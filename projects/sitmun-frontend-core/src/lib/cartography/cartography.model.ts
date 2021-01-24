@@ -80,5 +80,6 @@ export class Cartography extends Resource {
   /** geometry type*/
   public geometryType: string;
   
-
+  /** whether cartography is blocked*/
+  public blocked: boolean;
 }

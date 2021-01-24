@@ -33,4 +33,7 @@ export class Service extends Resource {
   
   /** parameters*/  
   public parameters: ServiceParameter[];
+
+  /** whether service is blocked*/
+  public blocked: boolean;
 }
