@@ -10,9 +10,11 @@ export class TreeNode extends Resource {
   /** tooltip*/
   public tooltip: string;
   /** order*/
-  public orden : number;
+  public order : number;
   /** whether tree node is active*/
   public active: boolean;
+  /** parent tree node */
+  public radio: boolean;
   /** parent tree node */
   public parent: TreeNode;
   /** displayed cartography */  
