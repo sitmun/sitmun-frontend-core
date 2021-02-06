@@ -3,5 +3,5 @@ echo
 echo "After successful build ..."
 echo
 
-cd $TRAVIS_BUILD_DIR
+cd $BUILD_DIR
 ./gradlew sonarqube

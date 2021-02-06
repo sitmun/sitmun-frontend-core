@@ -1,17 +1,13 @@
 #!/bin/bash
 # For local builds
 
-# These variables are declared by travis automatically or
-# in the .travis.yml. I have not found a way to make travis-ci
-# share environment variables declared in one shell script with
-# other shell scripts in the same build, so for local builds
+# These variables are declared by the CI. 
+# For local builds
 # they need to be declared also here.
-# THIS IMPLIES THAT THIS LOCAL BUILD AND THE TRAVIS-CI BUILD
-# MIGHT DIFFER. TO-DO: IF THIS BUILD STRUCTURE IS KEPT, A
-# SCRIPT THAT BUILDS BOTH THIS SCRIPT AND .TRAVIS.YML FROM
-# A SET OF COMMON VARIABLES COULD BE USEFUL.
+# THIS IMPLIES THAT THIS LOCAL BUILD AND THE CI BUILD
+# MIGHT DIFFER.
 
-export TRAVIS_BUILD_DIR=${PWD}
+export BUILD_DIR=${PWD}
 
 ################################################
 

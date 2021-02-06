@@ -29,3 +29,5 @@ package-lock.json
 /tsconfig.development.json
 /docs-build
 swagger.json
+.directory
+.scannerwork

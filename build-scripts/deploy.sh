@@ -3,7 +3,7 @@ echo
 echo "Publishing package script ... "
 echo
 
-cd $TRAVIS_BUILD_DIR
+cd $BUILD_DIR
 if ./gradlew npmPublish; then    
     echo
 else        
