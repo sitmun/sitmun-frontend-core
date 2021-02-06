@@ -1,9 +1,0 @@
-# Project version
-sitmun_version=0.7.0-SNAPSHOT
-
-# Dependencies
-bootstrap_version=3.3.7
-requirejs_version=2.3.3
-
-# Tools
-
