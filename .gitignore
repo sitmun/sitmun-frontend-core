@@ -22,7 +22,6 @@ database/
 /dist/
 /node_modules/
 .vscode/
-package-lock.json
 /out-tsc/
 /authorization-service-ad.txt
 /todo.txt
