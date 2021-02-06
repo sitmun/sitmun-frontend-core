@@ -38,6 +38,6 @@ jobs:
       env:
         USERNAME: ${{secrets.USERNAME_FOR_WORKFLOWS}}
         GITHUB_API_KEY: ${{secrets.TOKEN_FOR_WORKFLOWS}}
-        BUILD_DIR: ${{env.GITHUB_WORKSPACE}}
+        BUILD_DIR: ${{github.workspace}}
       run: ./build-scripts/deploy_docs.sh
       shell: bash
