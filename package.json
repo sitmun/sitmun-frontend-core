@@ -5,6 +5,7 @@
     "build": "ng build",
     "build-angular-hal": "ng build angular-hal",
     "build-sitmun-frontend-core": "ng build sitmun-frontend-core",
+    "build-sitmun-frontend-core-prod": "ng build sitmun-frontend-core --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

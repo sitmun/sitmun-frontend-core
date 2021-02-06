@@ -26,8 +26,8 @@ jobs:
       run: npm set //npm.pkg.github.com/:_authToken ${{secrets.TOKEN_FOR_WORKFLOWS}}
     - name: Install dependencies
       run: npm ci    
-    - name: Build
-      run: npm run build-sitmun-frontend-core
+    - name: Build with --prod
+      run: npm run build-sitmun-frontend-core-prod
     - name: Sonar Cloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
