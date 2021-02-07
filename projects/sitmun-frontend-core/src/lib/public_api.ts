@@ -45,6 +45,8 @@ export * from './cartography/cartography-group.model';
 export * from './cartography/cartography-group.service';
 export * from './cartography/cartography-availability.model';
 export * from './cartography/cartography-availability.service';
+export * from './cartography/cartography-filter.model';
+export * from './cartography/cartography-filter.service';
 export * from './cartography/cartography-parameter.model';
 export * from './cartography/cartography-parameter.service';
 export * from './cartography/background.model';

@@ -14,8 +14,22 @@ export class Cartography extends Resource {
   /** type*/
   public type : string;
 
-  /** whether layer is visible*/
-  public visible: Boolean;
+  /** service*/
+  public service : Service;
+
+  /** order*/  
+  public order: Number; 
+
+  /** description*/  
+  public description: String;
+
+  /** source*/  
+  public source: String;
+
+  /** whether cartography is blocked*/
+  public blocked: boolean;
+
+  
 
   /** transparency*/ 
   public transparency: Number;
@@ -32,9 +46,6 @@ export class Cartography extends Resource {
   /** system created date*/
   public createdDate: any;
 
-  /** order*/  
-  public order: Number; 
-  
   /** minimum scale*/
   public minimumScale: Number;
 
@@ -43,9 +54,6 @@ export class Cartography extends Resource {
 
   /** layers*/  
   public layers: string;
-
-  /** service*/
-  public service : Service;
   
   /** connection*/
   public connection: Connection;
@@ -80,6 +88,5 @@ export class Cartography extends Resource {
   /** geometry type*/
   public geometryType: string;
   
-  /** whether cartography is blocked*/
-  public blocked: boolean;
+
 }

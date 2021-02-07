@@ -23,6 +23,7 @@ import {ServiceService} from './service/service.service';
 import {ServiceParameterService} from './service/service-parameter.service';
 import {CartographyService} from './cartography/cartography.service';
 import {CartographyAvailabilityService} from './cartography/cartography-availability.service';
+import {CartographyFilterService} from './cartography/cartography-filter.service';
 import {CartographyGroupService} from './cartography/cartography-group.service';
 import {CartographyParameterService} from './cartography/cartography-parameter.service';
 import {BackgroundService} from './cartography/background.service';
@@ -100,6 +101,7 @@ export class SitmunFrontendCoreModule {
         CartographyGroupService,
         CartographyAvailabilityService,
         CartographyParameterService,
+        CartographyFilterService,
         BackgroundService,
         TreeService,
         TreeNodeService,

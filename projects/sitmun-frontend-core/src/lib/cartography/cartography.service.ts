@@ -31,10 +31,26 @@ export class CartographyService extends RestService<Cartography> {
     let cartographySelectionService = item.selectionService;
 
 
-    if (item.service != null)
-      item.service = item.service._links.self.href;
-    if (item.selectionService != null)
-      item.selectionService = item.selectionService._links.self.href;
+    if (item.service != null) {
+      if (typeof item.service._links != 'undefined') {
+        item.service = item.service._links.self.href;
+      } else {
+        cartographyService._links = {};
+        cartographyService._links.self = {};
+        cartographyService._links.self.href = "";
+      }
+    }
+
+    if (item.selectionService != null) {
+      if (typeof item.selectionService._links != 'undefined') {
+        item.selectionService = item.selectionService._links.self.href;
+      } else {
+        cartographySelectionService._links = {};
+        cartographySelectionService._links.self = {};
+        cartographySelectionService._links.self.href = "";
+      }
+    }
+
     if (item.connection != null) {
       if (typeof item.connection._links != 'undefined') {
         item.connection = item.connection._links.self.href;
@@ -42,7 +58,7 @@ export class CartographyService extends RestService<Cartography> {
         cartographyConnection._links = {};
         cartographyConnection._links.self = {};
         cartographyConnection._links.self.href = "";
-      }
+      } 
     }
 
     if (item._links != null) {
@@ -54,23 +70,28 @@ export class CartographyService extends RestService<Cartography> {
 
       if (cartographyConnection._links.self.href == '') {
         item.deleteRelation('spatialSelectionConnection', cartographyConnection).subscribe(result => {
-          item.substituteRelation('service', cartographyService).subscribe(result => {
-            item.substituteRelation('spatialSelectionService', cartographySelectionService).subscribe(result => {
-            }, error => console.error(error));
-          }, error => console.error(error));
         }, error => console.error(error));
-
       } else {
         item.substituteRelation('spatialSelectionConnection', cartographyConnection).subscribe(result => {
-          item.substituteRelation('service', cartographyService).subscribe(result => {
-            item.substituteRelation('spatialSelectionService', cartographySelectionService).subscribe(result => {
-            }, error => console.error(error));
-          }, error => console.error(error));
         }, error => console.error(error));
       }
 
+      if (cartographyService._links.self.href == '') {
+        item.deleteRelation('service', cartographyService).subscribe(result => {
+        }, error => console.error(error));
+      } else {
+        item.substituteRelation('service', cartographyService).subscribe(result => {
+        }, error => console.error(error));
+      }
 
-      
+      if (cartographySelectionService._links.self.href == '') {
+        item.substituteRelation('spatialSelectionService', cartographySelectionService).subscribe(result => {
+        }, error => console.error(error));
+      } else {
+        item.substituteRelation('spatialSelectionService', cartographySelectionService).subscribe(result => {
+        }, error => console.error(error));
+      }
+
       result = this.http.put(item._links.self.href, item);
 
     } else {
