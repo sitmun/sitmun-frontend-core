@@ -24,16 +24,18 @@ export class BackgroundService extends RestService<Background> {
   /** save background*/
   save(item: Background): Observable<any> {
     let result: Observable<Object>;
-    let backgroundCartographyGroup = item.cartographyGroup;
+    let backgroundCartographyGroup:any = {}         
+    
+    backgroundCartographyGroup._links= {};
+    backgroundCartographyGroup._links.self = {};
+    backgroundCartographyGroup._links.self.href="";
+    item.cartographyGroup;
 
     if (item.cartographyGroup!=null){
+      backgroundCartographyGroup = item.cartographyGroup;
         if (typeof item.cartographyGroup._links!= 'undefined') { 
             item.cartographyGroup = item.cartographyGroup._links.self.href;
-        } else {
-            backgroundCartographyGroup._links= {};
-            backgroundCartographyGroup._links.self = {};
-            backgroundCartographyGroup._links.self.href="";
-        }        
+        }    
      }
 
     if (item._links!=null) {

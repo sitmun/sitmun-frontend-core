@@ -9,6 +9,10 @@ import { User } from './user.model';
 export class UserConfiguration extends Resource {
   /** role */  
   public role: Role;
+
+  /** role Children */  
+  public roleChildren: Role;
+  
   /** territory */ 
   public territory: Territory;
   /** user */

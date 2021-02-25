@@ -43,6 +43,8 @@ import { LoginService } from './auth/login.service';
 import { AccountService } from './account/account.service';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslationService } from './translation/translation.service';
+import { LanguageService } from './translation/language.service';
 
 /** load i18n assets*/
 export function createTranslateLoader(http: HttpClient) {
@@ -114,6 +116,8 @@ export class SitmunFrontendCoreModule {
         UserPositionService,
         UserConfigurationService,
         LoginService,
+        TranslationService,
+        LanguageService,
         MapConfigurationManagerService,
         {
           provide: HTTP_INTERCEPTORS,

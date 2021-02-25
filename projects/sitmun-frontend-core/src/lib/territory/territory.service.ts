@@ -26,17 +26,16 @@ export class TerritoryService extends RestService<Territory> {
   save(item: Territory): Observable<any> {
     let result: Observable<Object>;
 
-
-    let territoryGroupType = item.groupType;
+    let territoryGroupType:any = {}
+    territoryGroupType._links = {};
+    territoryGroupType._links.self = {};
+    territoryGroupType._links.self.href = "";
 
     if (item.groupType != null) {
+      territoryGroupType = item.groupType;
       if (typeof item.groupType._links != 'undefined') {
         item.groupType = item.groupType._links.self.href;
-      } else {
-        territoryGroupType._links = {};
-        territoryGroupType._links.self = {};
-        territoryGroupType._links.self.href = "";
-      }
+      } 
     }
 
     if (item._links != null) {

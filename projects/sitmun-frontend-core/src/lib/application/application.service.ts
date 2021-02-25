@@ -3,6 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {RestService} from '../angular-hal/src/lib/rest.service';
+import { CartographyGroup } from '../cartography/cartography-group.model';
 
 /** Application manager service */
 @Injectable()
@@ -26,16 +27,17 @@ export class ApplicationService extends RestService<Application> {
   /** save application*/
   save(item: Application): Observable<any> {
     let result: Observable<Object>;
-    let applicationSituationMap = item.situationMap;
 
+    let applicationSituationMap:any = {};
+    applicationSituationMap._links= {};
+    applicationSituationMap._links.self = {};
+    applicationSituationMap._links.self.href="";
+     
     if (item.situationMap!=null){
+        applicationSituationMap=item.situationMap;
         if (typeof item.situationMap._links!= 'undefined') { 
             item.situationMap = item.situationMap._links.self.href;
-        } else {
-            applicationSituationMap._links= {};
-            applicationSituationMap._links.self = {};
-            applicationSituationMap._links.self.href="";
-        }        
+        }       
      }
 
     if (item._links!=null) {

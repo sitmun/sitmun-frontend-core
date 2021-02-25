@@ -30,14 +30,19 @@ export class CartographyFilterService extends RestService<CartographyFilter> {
       result = this.http.put(item._links.self.href, item);
       if (item.cartography !=null){
           item.substituteRelation('cartography',item.cartography).subscribe(result => {
-      
       }, error => console.error(error));
+      }
+
+      if(item.territorialLevel != null && item.territorialLevel != undefined ){
+        item.substituteRelation('territorialLevel',item.territorialLevel).subscribe(result => {
+        }, error => console.error(error));
       }
      
     } else {
       
       item.cartography = item.cartography._links.self.href;
-  
+      item.territorialLevel=item.territorialLevel._links.self.href;
+      
       result = this.http.post(this.resourceService.getResourceUrl(this.CARTOGRAPHY_FILTER_API) , item);
     }
     return result;
