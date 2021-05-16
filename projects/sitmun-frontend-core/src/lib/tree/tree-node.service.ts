@@ -50,6 +50,14 @@ export class TreeNodeService extends RestService<TreeNode> {
       
           }, error => console.error(error));
       }
+      else{
+          let treeNodeParent:any = {};
+          treeNodeParent._links= {};
+          treeNodeParent._links.self = {};
+          treeNodeParent._links.self.href="";
+          item.deleteRelation('parent', treeNodeParent).subscribe(result => {
+        }, error => console.error(error));
+      }
       
     } else {
       if (item.tree && item.tree._links && item.tree._links.self) {

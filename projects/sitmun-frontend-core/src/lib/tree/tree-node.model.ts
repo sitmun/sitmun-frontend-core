@@ -9,6 +9,12 @@ export class TreeNode extends Resource {
   public name: string;
   /** tooltip*/
   public tooltip: string;
+  /** description*/
+  public description: string;
+  /** datasetURL*/
+  public datasetURL: string;
+  /** metadataURL*/
+  public metadataURL: string;
   /** order*/
   public order : number;
   /** whether tree node is active*/

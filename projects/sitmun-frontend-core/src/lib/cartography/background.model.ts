@@ -12,7 +12,10 @@ export class Background extends Resource {
 
   /** description*/
   public description: string;
-  
+
+  /** image */
+  public image: string;
+
   /** whether background is active*/
   public active: Boolean;
   

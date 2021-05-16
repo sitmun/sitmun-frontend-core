@@ -9,6 +9,10 @@ export class Tree extends Resource {
   public id: number;
   /** name */
   public name: string;
+  /** description */
+  public description: string;
+  /** image */
+  public image: string;
   /** nodes */
   public nodes: TreeNode[];
   /** available roles */

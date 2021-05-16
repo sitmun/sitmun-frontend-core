@@ -6,7 +6,7 @@ export class Language extends Resource {
   /** id */
   public id: number;
   /** name */
-  public shortName: string;
+  public shortname: string;
   /** name */
   public name: string;
 }

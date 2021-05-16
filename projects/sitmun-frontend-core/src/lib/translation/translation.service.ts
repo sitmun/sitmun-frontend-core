@@ -42,15 +42,14 @@ export class TranslationService extends RestService<Translation> {
 
     if (item._links!=null) {
       delete item.language;
+      // if (language._links.self.href == '') {
+      //   item.deleteRelation('language', language).subscribe(result => {
+      //   }, error => console.error(error));
 
-      if (language._links.self.href == '') {
-        item.deleteRelation('language', language).subscribe(result => {
-        }, error => console.error(error));
-
-      } else {
-        item.substituteRelation('language', language).subscribe(result => {
-        }, error => console.error(error));
-      }
+      // } else {
+      //   item.substituteRelation('language', language).subscribe(result => {
+      //   }, error => console.error(error));
+      // }
       result = this.http.put(item._links.self.href, item);
     } else {
       result = this.http.post(this.resourceService.getResourceUrl(this.TRANSLATION_API) , item);

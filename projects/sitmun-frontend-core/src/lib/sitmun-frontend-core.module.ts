@@ -45,7 +45,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { TranslationService } from './translation/translation.service';
 import { LanguageService } from './translation/language.service';
-
+import { DashboardService } from './dashboard/dashboard.service';
 /** load i18n assets*/
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -118,6 +118,7 @@ export class SitmunFrontendCoreModule {
         LoginService,
         TranslationService,
         LanguageService,
+        DashboardService,
         MapConfigurationManagerService,
         {
           provide: HTTP_INTERCEPTORS,

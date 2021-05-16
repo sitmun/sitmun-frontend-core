@@ -20,6 +20,8 @@ export class User extends Resource {
   public blocked: boolean;
   /** whether user is administrator */
   public administrator: boolean;
+  /** Is passwordSet */
+  public passwordSet: boolean;
   /** user positions */
   public positions: UserPosition[];
   /** user permissions */
