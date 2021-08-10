@@ -37,28 +37,8 @@ export class ServiceService extends RestService<Service> {
         }        
      }
 
-    if (item._links!=null) {
-      //update relations
-      /*delete item.connection;        
-      
-      if (serviceConnection._links.self.href==''){
-         item.deleteRelation('connection',serviceConnection).subscribe(result => {     
-
-          
-             }, error => console.error(error));
-          
-      } else {
-          item.substituteRelation('connection',serviceConnection).subscribe(result => {
-         
-
-      
-            }, error => console.error(error));           
-       } */
-       
-         
-      result = this.http.put(item._links.self.href, item);
-
-           
+    if (item._links!=null) {     
+      result = this.http.put(item._links.self.href, item);       
     } else {
       result = this.http.post(this.resourceService.getResourceUrl(this.SERVICE_API) , item);
     }

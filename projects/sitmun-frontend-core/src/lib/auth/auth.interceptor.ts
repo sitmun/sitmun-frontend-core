@@ -11,9 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
     
     /** request handler */
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (!request || !request.url || !(request.url.includes("api")) ) {
-            return next.handle(request);
-        }
+
         const token = sessionStorage.getItem('authenticationToken');
         if (!!token) {
             request = request.clone({

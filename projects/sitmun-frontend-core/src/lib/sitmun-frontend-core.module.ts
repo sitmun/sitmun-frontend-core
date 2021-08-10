@@ -46,6 +46,10 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { TranslationService } from './translation/translation.service';
 import { LanguageService } from './translation/language.service';
 import { DashboardService } from './dashboard/dashboard.service';
+import { CapabilitiesService } from './capabilities/capabilities.service';
+import { ConfigurationParametersService } from './configuration/configuration-parameters.service';
+import { CartographyStyleService } from './cartography/cartography-style.service';
+import { CartographySpatialSelectionParameterService } from './cartography/cartography-spatial-selection-parameter.service';
 /** load i18n assets*/
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -98,11 +102,15 @@ export class SitmunFrontendCoreModule {
         TaskParameterService,
         TaskAvailabilityService,
         ServiceService,
+        ConfigurationParametersService,
+        CapabilitiesService,
         ServiceParameterService,
         CartographyService,
         CartographyGroupService,
         CartographyAvailabilityService,
         CartographyParameterService,
+        CartographySpatialSelectionParameterService,
+        CartographyStyleService,
         CartographyFilterService,
         BackgroundService,
         TreeService,

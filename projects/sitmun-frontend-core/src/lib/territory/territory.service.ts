@@ -31,10 +31,15 @@ export class TerritoryService extends RestService<Territory> {
     territoryGroupType._links.self = {};
     territoryGroupType._links.self.href = "";
 
-    if (item.groupType != null) {
-      territoryGroupType = item.groupType;
-      if (typeof item.groupType._links != 'undefined') {
-        item.groupType = item.groupType._links.self.href;
+    let territoryType:any = {}
+    territoryType._links = {};
+    territoryType._links.self = {};
+    territoryType._links.self.href = "";
+
+    if (item.type != null) {
+      territoryType = item.type;
+      if (typeof item.type._links != 'undefined') {
+        item.type = item.type._links.self.href;
       } 
     }
 
@@ -42,17 +47,28 @@ export class TerritoryService extends RestService<Territory> {
       //update relations
       delete item.groupType;
 
-      if (territoryGroupType._links.self.href == '') {
-        item.deleteRelation('groupType', territoryGroupType).subscribe(result => {
+
+      // if (territoryGroupType._links.self.href == '') {
+      //   item.deleteRelation('groupType', territoryGroupType).subscribe(result => {
+      //   }, error => console.error(error));
+
+      // } else {
+      //   item.substituteRelation('groupType', territoryGroupType).subscribe(result => {
+      //   }, error => console.error(error));
+      // }
+
+      if (territoryType._links.self.href == '') {
+        item.deleteRelation('type', territoryType).subscribe(result => {
         }, error => console.error(error));
 
       } else {
-        item.substituteRelation('groupType', territoryGroupType).subscribe(result => {
+        item.substituteRelation('type', territoryType).subscribe(result => {
         }, error => console.error(error));
       }
 
-      if (item.type != null)
-        item.type = item.type._links.self.href;
+      delete item.type;
+      // if (item.type != null)
+      //   item.type = item.type._links.self.href;
 
       result = this.http.put(item._links.self.href, item);
     } else {

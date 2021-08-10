@@ -14,6 +14,10 @@ export class Translation extends Resource {
   public column: string;
   /** name */
   public language: Language;
+  /** name */
+  public languageName?: string;
+  /** name */
+  public languageShortname?: string;
 
 
 

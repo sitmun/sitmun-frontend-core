@@ -27,26 +27,6 @@ export class UserConfigurationService extends RestService<UserConfiguration> {
     let result: Observable<Object>;
     if (item._links != null) {
       result = this.http.put(item._links.self.href, item);
-      if (item.user != null) {
-        item.substituteRelation('user', item.user).subscribe(result => {
-
-        }, error => console.error(error));
-      }
-      if (item.territory != null) {
-        item.substituteRelation('territory', item.territory).subscribe(result => {
-
-        }, error => console.error(error));
-      }
-      if (item.role != null) {
-        item.substituteRelation('role', item.role).subscribe(result => {
-
-        }, error => console.error(error));
-      }
-      if (item.roleChildren != null) {
-        item.substituteRelation('roleChildren', item.roleChildren).subscribe(result => {
-
-        }, error => console.error(error));
-      }
     } else {
       item.territory = item.territory._links.self.href;
       item.role = item.role!=null?item.role._links.self.href:null;
