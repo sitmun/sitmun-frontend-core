@@ -1,4 +1,6 @@
 {
+  "name": "@sitmun/sitmun-frontend-core",
+  "version": "0.8.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,7 +15,6 @@
     "compodoc": "npx compodoc -p tsconfig.json --output ./docs-build/doc-frontend-core -n 'SITMUN Frontend Core Angular Library documentation'",
     "sonar": "sonar-scanner"
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "~6.1.0",
     "@angular/core": "~6.1.0",
