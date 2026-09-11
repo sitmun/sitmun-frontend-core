@@ -16,7 +16,7 @@
   "private": true,
   "dependencies": {
     "@angular/common": "~6.1.0",
-    "@angular/core": "~6.1.0",
+    "@angular/core": "~20.3.28",
     "@angular/router": "~6.1.0",
     "@ngx-translate/core": "~10.0.2",
     "@ngx-translate/http-loader": "~3.0.1"
